@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+	public float atkRadius = 20f;
 	public float dmgValue = 4;
 	public GameObject throwableObject;
 	public Transform attackCheck;
@@ -53,7 +54,7 @@ public class Attack : MonoBehaviour
 	public void DoDashDamage()
 	{
 		dmgValue = Mathf.Abs(dmgValue);
-		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, 0.9f);
+		Collider2D[] collidersEnemies = Physics2D.OverlapCircleAll(attackCheck.position, atkRadius);
 		for (int i = 0; i < collidersEnemies.Length; i++)
 		{
 			if (collidersEnemies[i].gameObject.tag == "Enemy")
@@ -66,5 +67,12 @@ public class Attack : MonoBehaviour
 				cam.GetComponent<CameraFollow>().ShakeCamera();
 			}
 		}
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, atkRadius);
+		
 	}
 }
