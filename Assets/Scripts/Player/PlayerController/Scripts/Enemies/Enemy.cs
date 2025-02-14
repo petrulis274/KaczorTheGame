@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Random = UnityEngine.Random;
+
 
 public class Enemy : MonoBehaviour {
 
@@ -24,6 +27,9 @@ public class Enemy : MonoBehaviour {
 
 	public bool isInvincible = false;
 	private bool isHitted = false;
+	
+	//Loot Table
+	[Header("Loot")] public List<LootItem> lootTable = new List<LootItem>();
 
 	void Awake () {
 		fallCheck = transform.Find("FallCheck");
@@ -128,7 +134,32 @@ public class Enemy : MonoBehaviour {
 		capsule.direction = CapsuleDirection2D.Horizontal;
 		yield return new WaitForSeconds(0.25f);
 		rb.velocity = new Vector2(0, rb.velocity.y);
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(0.2f);
+		Die();
+		
+	}
+
+	public void Die()
+	{
+		foreach (LootItem lootItem in lootTable)
+		{
+			if (Random.Range(0f, 100f) <= lootItem.dropChance)
+			{
+				InstantiateLoot(lootItem.itemPrefab);
+				break;	
+			}
+			
+		}
 		Destroy(gameObject);
+	}
+
+	void InstantiateLoot(GameObject loot)
+	{
+		if (loot)
+		{
+			GameObject droppedLoot = Instantiate(loot, transform.position, Quaternion.identity);
+			
+			droppedLoot.GetComponent<SpriteRenderer>().color = Color.red;
+		}
 	}
 }
