@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -11,6 +12,12 @@ public class Enemy : MonoBehaviour {
 	public LayerMask turnLayerMask;
 	private Rigidbody2D rb;
 
+
+	public float distance = 1f;
+	public LayerMask boxMask;
+	private GameObject box;
+	
+
 	private bool facingRight = true;
 	
 	public float speed = 5f;
@@ -23,7 +30,25 @@ public class Enemy : MonoBehaviour {
 		wallCheck = transform.Find("WallCheck");
 		rb = GetComponent<Rigidbody2D>();
 	}
+
+	private void Update()
+	{
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up * transform.localScale.y, distance, boxMask );
+		
+		if (hit.collider != null && hit.collider.gameObject.tag == "Pushable")
+		{
+			box = hit.collider.gameObject;
+			ApplyDamage(4f);
+		}
+	}
 	
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.yellow;
+        
+		Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.down * transform.localScale.x * distance);
+	}
+
 	// Update is called once per frame
 	void FixedUpdate () {
 
