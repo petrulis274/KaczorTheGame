@@ -271,6 +271,26 @@ public class CharacterController2D : MonoBehaviour
 		{
 			Destroy(other.gameObject);
 		}
+		
+		Trap trap = other.GetComponent<Trap>();
+		if (trap != null && trap.damage > 0)
+		{
+			if (!invincible)
+			{
+				animator.SetBool("Hit", true);
+				life -= trap.damage;
+				if (life <= 0)
+				{
+					StartCoroutine(WaitToDead());
+				}
+				else 
+				{
+					
+					StartCoroutine(MakeInvincible(0.5f));
+				}	
+			}
+			
+		}
 	}
 
 	public void ApplyDamage(float damage, Vector3 position) 
