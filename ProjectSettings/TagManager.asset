@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Pushable
+  - Coin
+  - Diamond
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -258,6 +259,18 @@ public class CharacterController2D : MonoBehaviour
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+	}
+
+	public void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.CompareTag("Coin"))
+		{
+			Destroy(other.gameObject);
+		}
+		else if (other.gameObject.CompareTag("Diamond"))
+		{
+			Destroy(other.gameObject);
+		}
 	}
 
 	public void ApplyDamage(float damage, Vector3 position) 
