@@ -8,6 +8,8 @@ TagManager:
   - Pushable
   - Coin
   - Diamond
+  - Key
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - UI
   - Box
   - Player
-  - 
-  - 
+  - Key
+  - Door
   - 
   - 
   - 
