@@ -5,7 +5,7 @@ using UnityEngine.TextCore.Text;
 
 public class ShopScript : MonoBehaviour
 {
-    public AudioSource audio;
+    public AudioSource audioSource;
     public AudioClip audioClip;
     [SerializeField]  GameObject player;
     private bool playerInTrigger = false;
@@ -47,7 +47,7 @@ public class ShopScript : MonoBehaviour
         {
             ScoreManager.score -= 1;
             CharacterController2D.dashUnlocked = true;
-            audio.PlayOneShot(audioClip);
+            audioSource.PlayOneShot(audioClip);
             
         }
     }

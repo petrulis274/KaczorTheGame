@@ -67,7 +67,6 @@ public class CharacterController2D : MonoBehaviour, IDataPersistence
 
 	private void FixedUpdate()
 	{
-		bool dashUnlocked;
 		
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
