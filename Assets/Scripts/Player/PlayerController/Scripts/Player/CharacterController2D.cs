@@ -23,6 +23,7 @@ public class CharacterController2D : MonoBehaviour
 	public bool canDoubleJump = true; 
 	[SerializeField] private float m_DashForce = 25f;
 	private bool canDash = true;
+	public static bool dashUnlocked = false;
 	private bool isDashing = false; 
 	private bool m_IsWall = false; 
 	private bool isWallSliding = false; 
@@ -66,6 +67,8 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		bool dashUnlocked;
+		
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
@@ -134,7 +137,7 @@ public class CharacterController2D : MonoBehaviour
 	public void Move(float move, bool jump, bool dash)
 	{
 		if (canMove) {
-			if (dash && canDash && !isWallSliding)
+			if (dash && canDash && !isWallSliding && dashUnlocked)
 			{
 				
 				StartCoroutine(DashCooldown());
