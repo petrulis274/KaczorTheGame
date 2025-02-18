@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class CharacterController2D : MonoBehaviour
+public class CharacterController2D : MonoBehaviour, IDataPersistence
 {
 	[SerializeField] private float m_JumpForce = 400f;							
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;	
@@ -374,5 +374,15 @@ public class CharacterController2D : MonoBehaviour
 		m_Rigidbody2D.velocity = new Vector2(0, m_Rigidbody2D.velocity.y);
 		yield return new WaitForSeconds(1.1f);
 		SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+	}
+
+	public void LoadData(GameData data)
+	{
+		CharacterController2D.dashUnlocked = data.canDashData;
+	}
+
+	public void SaveData(ref GameData data)
+	{
+		data.canDashData = CharacterController2D.dashUnlocked;
 	}
 }

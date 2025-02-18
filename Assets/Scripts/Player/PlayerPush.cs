@@ -33,6 +33,7 @@ public class PlayerPush : MonoBehaviour
         {
             box.GetComponent<FixedJoint2D>().enabled = false;
             box.GetComponent<boxPull>().beingPushed = false;
+            
         }
     }
 
