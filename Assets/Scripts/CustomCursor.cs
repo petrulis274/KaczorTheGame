@@ -5,7 +5,6 @@ using UnityEngine;
 public class CustomCursor : MonoBehaviour
 {
     void Start()
-    {
-        Cursor.visible = true; // Now correctly refers to UnityEngine.Cursor
+    { // Now correctly refers to UnityEngine.Cursor
     }
 }

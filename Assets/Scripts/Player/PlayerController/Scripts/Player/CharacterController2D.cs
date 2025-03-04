@@ -33,7 +33,7 @@ public class CharacterController2D : MonoBehaviour, IDataPersistence
 
 	public float life = 10f; 
 	public bool invincible = false; 
-	private bool canMove = true; 
+	public bool canMove = true; 
 
 	private Animator animator;
 	public ParticleSystem particleJumpUp; 
