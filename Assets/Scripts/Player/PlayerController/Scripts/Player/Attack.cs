@@ -13,6 +13,9 @@ public class Attack : MonoBehaviour
 	public bool canAttack = true;
 	public bool isTimeToCheck = false;
 
+	public float chargeTime;
+	public bool isCharging = false;
+	
 	public GameObject cam;
 
 	private void Awake()
@@ -36,6 +39,26 @@ public class Attack : MonoBehaviour
 			StartCoroutine(AttackCooldown());
 		}
 
+		if (Input.GetKey(KeyCode.X) && chargeTime < 2)
+		{
+			isCharging = true;
+			if (isCharging)
+			{
+				chargeTime += Time.deltaTime;
+			}
+		}
+
+		if (Input.GetKeyUp(KeyCode.X) && chargeTime >= 2)
+		{
+			isCharging = false;
+			chargeTime = 0;
+			StartCoroutine(ChargeDmg());
+			animator.SetBool("IsAttacking", true);
+			StartCoroutine(AttackCooldown());
+			StartCoroutine(DmgReset());
+
+		}
+
 		if (Input.GetKeyDown(KeyCode.V))
 		{
 			GameObject throwableWeapon = Instantiate(throwableObject, transform.position + new Vector3(transform.localScale.x * 0.5f,-0.2f), Quaternion.identity) as GameObject; 
@@ -49,6 +72,17 @@ public class Attack : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.25f);
 		canAttack = true;
+	}
+
+	IEnumerator ChargeDmg()
+	{
+		yield return new WaitForSeconds(0.01f);
+		dmgValue = 8;
+	}
+	IEnumerator DmgReset()
+	{
+		yield return new WaitForSeconds(1f);
+		dmgValue = 4;
 	}
 
 	public void DoDashDamage()
